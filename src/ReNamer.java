@@ -407,7 +407,7 @@ public class ReNamer extends JFrame {
 			else if (event.getSource() == Run) {
 				System.out.println("run started");
 				System.out.println(RecordGroupNumText.getText());
-				printFiles();
+				reName();
 				
 			}
 			
@@ -421,8 +421,28 @@ public class ReNamer extends JFrame {
 		JTABrowseBox.setText(msg.trim());
 	}
 	
+	private String getExtension(String inStr) {
+		
+		boolean dotFlag = false;
+		String extension = "";
+		for (int i = 0; i < inStr.length(); i++) {
+			
+			
+			if (inStr.charAt(i) == '.') {
+				dotFlag = true;
+				System.out.println("flag hit");
+			}
+			
+			if (dotFlag) {
+				extension += inStr.charAt(i);
+			}
+		}
+		
+		return extension;
+	}
+	
 	// returns array of all filenames in a directory
-	private void printFiles() {
+	private void reName() {
 		System.out.println("start print");
 		File[] listOfFiles = inputDirectory.listFiles();
 		
@@ -437,21 +457,20 @@ public class ReNamer extends JFrame {
 		
 		// reName here
 		for (int i = 0; i < listOfFiles.length; i++) {
-				File newFile = new File(listOfFiles[i].getName() + "I DID IT!");
-				listOfFiles[i].renameTo(newFile);
+			
+				// find out extension ex: .txt .docx .xslx
+				String extension = getExtension(listOfFiles[i].getName());
+				System.out.println("extension is: " + extension);
+				File newFile = new File(inputDirectory + "/" + listOfFiles[i].getName().replace(extension,"") +  "a" + extension);
+				boolean success = listOfFiles[i].renameTo(newFile);
+				
+				if (!success) {
+					System.out.println("error on changing: " + listOfFiles[i]);
+				}
 		}
-		
-		System.out.println("rename done");
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				System.out.println("File: " + listOfFiles[i].getName());
-			}
-			else if (listOfFiles[i].isDirectory()) {
-				System.out.println("Directory: " + listOfFiles[i].getName());
-			}
-		}
-		
+		// DO THE NAMES IN THE ARRAY CHANGE AS WELL?? CHECK IT BIMBO
 	}
+	
 
 	
 	//######################################## MAIN FUNCTION SECTION ################################################//	
