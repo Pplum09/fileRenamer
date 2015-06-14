@@ -12,13 +12,6 @@
  * 		  the other buttons work
  * 
  * Version History:
- * 
- * Version 0.2 6/14/2015
- * 	- took out the JScrollPane so that work on just the file renaming
- *    could be done on the console without worrying about displaying to
- *    the JScrollPane
- *  - able to rename the file using text entered into the text areas and
- *    users are able to select what to append. All work except replace specific
  *
  * Version 0.15 1/28/2015
  *  - 2 JScrollPane used to display filenames was replaced with 1
